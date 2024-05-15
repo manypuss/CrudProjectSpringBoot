@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h2>
+    All Users
+</h2>
+<br>
+<table cellspacing="3" bgcolor="#000000">
+    <thead>
+    <tr bgcolor="#ffffff">
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Department</th>
+        <th>Salary</th>
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr bgcolor="#ffffff" th:each="user, iterStat : ${allUsers}">
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getSurname()}"></td>
+        <td th:text="${user.getDepartment()}"></td>
+        <td th:text="${user.getSalary()}"></td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <form th:method="GET" th:action="@{users/edit}" th:object="${user}">
+                            <input type="submit" value="Edit"/>
+                            <input type="hidden" name="id" th:value="${user.getId()}"/>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:method="POST" th:action="@{users/delete}" th:object="${user}">
+                            <input type="submit" value="Delete"/>
+                            <input type="hidden" name="id" th:value="${user.getId()}"/>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<form th:method="GET" th:action="@{users/addNewUser}">
+    <input type="submit" value="Add"/>
+</form>
+</body>
+</html>
